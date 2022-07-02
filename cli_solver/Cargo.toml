@@ -1,0 +1,22 @@
+[package]
+name = "mastermind"
+version = "0.1.0"
+authors = ["be7a <bela.stoyan@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[[bin]]
+name = "interactive_solver"
+path = "src/solver.rs"
+
+[dependencies]
+itertools = "*"
+rayon = "1.4.1"
+rand = "*"
+dialoguer = "*"
+indicatif = { version = "*", features = ["rayon"] }
+num-format = "0.4.0"
+num_cpus = "*"
+libmastermind = { path = "../libmastermind" }

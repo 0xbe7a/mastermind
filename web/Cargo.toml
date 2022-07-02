@@ -1,0 +1,20 @@
+[package]
+name = "web"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+
+[dev-dependencies]
+wasm-bindgen-test = "*"
+
+[dependencies]
+wasm-bindgen = "*"
+libmastermind = { path = "../libmastermind" }
+
+[target.'cfg(target_feature = "atomics")'.dependencies]
+wasm-bindgen-rayon = "1.0"
+
+

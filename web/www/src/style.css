@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin');
+
+html {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: #E2DADD;
+  font-family: 'Cabin', sans-serif;
+}
+
+#root {  
+  text-align: center;
+  width: max-content;
+  height: max-content;
+}
+
+#root h2 {
+  font-size: 2em;
+  margin: 0.67em 0 0.15em 0;  
+}
+
+.menu {
+  display: flex;
+  white-space:nowrap;
+}
+
+.menu button {
+  flex: 1;
+  width: auto;
+  height: 3rem;
+  margin: 0.5em 0.15em;
+  border: 2px solid #BBAAAA;
+  transition: 0.3s;
+}
+
+.menu .row {
+  flex: 1;
+  margin-left: 1rem;
+}
+
+.menu button.red:hover:enabled {
+  background-color: red;
+  color: white;
+}
+
+.menu button.blue:hover:enabled {
+  background-color: blue;
+  color: white;
+}
+
+.menu button.green:hover:enabled {
+  background-color: green;
+  color: white;
+}
+
+.state {
+  display: flex;
+  justify-content: center;
+  margin: 0.25rem 0;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+}
+
+.stats span {
+  margin-top: 1rem;
+  margin-top: 0.2rem;
+}
+
+.colors .color-holder, .board .peg {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #777;
+  margin-right: 8px;
+  border-radius: 21px;
+  cursor: pointer;
+  background-color: #F0EAED;
+}
+
+.peg {
+  vertical-align: middle;
+}
+
+.colors .red, .circles .red {
+  background-color: #E42244;
+}
+
+.colors .green, .circles .green {
+  background-color: #70C030;
+}
+
+.colors .orange, .circles .orange {
+  background-color: #FFBB36;
+}
+
+.colors .blue, .circles .blue {
+  background-color: #36BEDD;
+}
+
+.colors .purple, .circles .purple {
+  background-color: #9F66DF;
+}
+
+.colors .rose, .circles .rose {
+  background-color: #FFC0CB;
+}
+
+.colors .black, .circles .black {
+  background-color: #000000;
+}
+
+.colors .darkBlue, .circles .darkBlue {
+  background-color: #0000ff;
+}
+
+.colors .active {
+  border: 2px solid black;
+  border-radius: 21px;
+}
+
+.board {
+  margin-top: 15px;  
+}
+
+.board div {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.board .circles {
+  margin-left: 5px;
+}
+
+.board .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  vertical-align: middle;
+  border: 1px solid #D0CACD;
+  margin: 0 auto 3px auto;
+  padding: 0.5rem;
+}
+
+.board .row.active {
+  border:2px solid #BBAAAA;
+  background-color: #FFF9FC;
+}
+
+.board .row .hintsInput {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.board .row .hintsInput .hintRow span {
+  margin-top: 0.2rem;
+  margin-right: 0.2rem;
+}
+
+.board .hints {
+  display: flex;
+}
+
+.board .hints span {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #777;
+  background-color: #F0EAED;  
+  margin: 0px 2px;
+  font-size: 0.75em;
+  padding: 0;
+}
+
+.board .hints span.exact {
+  background-color: #00BB22;  
+}
+
+.board .hints span.partial {
+  background-color: #DDBB22;  
+}
+
+
+.solution p {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.solution .hidden {
+  display: none;
+}
+
+.solution .color-holder {
+  cursor: default;
+}
+
+.solution a {
+  color: #338855;
+  font-size: 1.1em;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.msg {
+  margin: 0.5em auto;
+}

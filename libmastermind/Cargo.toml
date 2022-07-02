@@ -1,0 +1,26 @@
+[package]
+name = "libmastermind"
+version = "0.1.0"
+authors = ["be7a <bela.stoyan@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dev-dependencies]
+criterion = "0.3"
+pprof = { version = "0.4", features = ["flamegraph", "criterion"] }
+
+[profile.bench]
+debug = true
+
+[[bench]]
+name = "minMax"
+harness = false
+
+[features]
+default = [ "multithreading" ]
+multithreading = [ "dep:rayon" ]
+
+[dependencies]
+num = "0.4.0"
+rayon = { version = "*", optional = true }

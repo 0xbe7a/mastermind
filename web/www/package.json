@@ -1,0 +1,56 @@
+{
+  "name": "mastermind-app",
+  "version": "0.1.0",
+  "description": "a mastermind solver using web assembly",
+  "main": "index.tsx",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "npm run wasm && react-scripts start",
+    "build": "npm run wasm && react-scripts build",
+    "wasm": "RUSTFLAGS=\"-C target-feature=+simd128,+atomics,+bulk-memory,+mutable-globals\" wasm-pack build --target web ../ -- -Z build-std=panic_abort,std",
+    "test": "npm run wasm && react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [
+    "webassembly",
+    "wasm",
+    "rust",
+    "webpack"
+  ],
+  "author": "Bela Stoyan <git@be7a.de>",
+  "homepage": "https://0xbe7a.github.io/mastermind",
+  "license": "(MIT OR Apache-2.0)",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^28.1.3",
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "comlink": "^4.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-loader-spinner": "^5.1.5",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.7.4",
+    "wasm-mastermind": "file:../pkg",
+    "web-vitals": "^2.1.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0"
+  }
+}

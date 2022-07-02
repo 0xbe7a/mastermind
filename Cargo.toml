@@ -1,0 +1,6 @@
+[workspace]
+members = [
+  "libmastermind",
+  "cli_solver",
+  "web"
+]
