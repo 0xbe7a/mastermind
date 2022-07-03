@@ -11,8 +11,9 @@ html {
 
 #root {  
   text-align: center;
-  width: max-content;
+  width: 30rem;
   height: max-content;
+  max-width: 100vw;
 }
 
 #root h2 {
@@ -30,7 +31,7 @@ html {
   width: auto;
   height: 3rem;
   margin: 0.5em 0.15em;
-  border: 2px solid #BBAAAA;
+  border: 0.2em solid #BBAAAA;
   transition: 0.3s;
 }
 
@@ -70,13 +71,20 @@ html {
   margin-top: 0.2rem;
 }
 
+.colors {
+  justify-content: center;
+  display: flex;
+}
+
 .colors .color-holder, .board .peg {
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  max-width: 2.5rem;
+  max-height: 2.5rem;
+  aspect-ratio: 1;
+  flex: 1;
   border: 1px solid #777;
-  margin-right: 8px;
-  border-radius: 21px;
+  margin: 0.125em;
+  border-radius: 50%;
   cursor: pointer;
   background-color: #F0EAED;
 }
@@ -119,11 +127,11 @@ html {
 
 .colors .active {
   border: 2px solid black;
-  border-radius: 21px;
+  border-radius: 50%;
 }
 
 .board {
-  margin-top: 15px;  
+  margin-top: 0.5rem;  
 }
 
 .board div {
@@ -133,6 +141,8 @@ html {
 
 .board .circles {
   margin-left: 5px;
+  display: flex;
+  flex: 1;
 }
 
 .board .row {
@@ -145,6 +155,7 @@ html {
   border: 1px solid #D0CACD;
   margin: 0 auto 3px auto;
   padding: 0.5rem;
+  flex: 1
 }
 
 .board .row.active {
@@ -154,23 +165,33 @@ html {
 
 .board .row .hintsInput {
   display: flex;
+  flex: 1;
   flex-direction: column;
+  
+}
+
+.board .row .hintsInput .hintRow {
+  display: flex;
+  justify-content: right;
 }
 
 
 
 .board .row .hintsInput .hintRow span {
-  margin-top: 0.2rem;
   margin-right: 0.2rem;
 }
 
 .board .hints {
   display: flex;
+  justify-content: right;
+  flex: 1
 }
 
 .board .hints span {
-  width: 20px;
-  height: 20px;
+  max-width: 1.5rem;
+  max-height: 1.5rem;
+  flex: 1;
+  aspect-ratio: 1;
   border: 1px solid #777;
   background-color: #F0EAED;  
   margin: 0px 2px;
