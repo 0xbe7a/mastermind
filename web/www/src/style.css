@@ -35,6 +35,10 @@ html {
   transition: 0.3s;
 }
 
+.menu input {
+  width: 2em;
+}
+
 .menu .row {
   flex: 1;
   margin-left: 1rem;
@@ -167,7 +171,6 @@ html {
   display: flex;
   flex: 1;
   flex-direction: column;
-  
 }
 
 .board .row .hintsInput .hintRow {
