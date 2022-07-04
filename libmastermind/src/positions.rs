@@ -47,25 +47,22 @@ impl StandardCollection {
 
     pub fn generate_possibilities(pins: usize, colors: usize) -> Self {
         let mut collection = Self::new(pins.pow(colors as u32), pins, colors);
+        let mut indexes = vec![0; pins];
 
-        let mut results: Vec<Vec<u8>> = vec![vec![]];
-        for _i in 0..pins {
-            let mut new_results = vec![];
-            for x in results.iter() {
-                for y in 0..colors {
-                    let mut z = x.clone();
-                    z.push(y as u8);
-                    new_results.push(z);
+        loop {
+            collection.push(&indexes);
+
+            match indexes.iter().position(|&c| c + 1 < colors as u8){
+                Some(position) => {
+                    for k in 0..position {
+                        indexes[k] = 0
+                    }
+                    indexes[position] += 1
                 }
-            }
-            results = new_results;
+                None => break
+            };
         }
-
-        results.sort();
-
-        for prod in &results {
-            collection.push(prod);
-        }
+        
         collection
     }
 
