@@ -15,8 +15,6 @@ const Mastermind = () => {
   useEffect(() => {
     const worker = new Worker(new URL('./wasm-workers', import.meta.url));
     Comlink.wrap<{initSolver: Promise<SolverType>}>(worker).initSolver.then((s) => {
-      const testSolver = new s(3, 3);
-
       solver.current = s
       setWasmLoaded(true)
     })
