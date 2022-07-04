@@ -5,7 +5,8 @@ type MenuProps = {
   onSubmit: () => void,
   onReset: () => void,
   canSubmit: boolean,
-  canReset: boolean
+  canReset: boolean,
+  canFindOptimal: boolean,
   onPegCountChange: (count: number) => void,
   onColorCountChange: (count: number) => void,
   pegCount: number,
@@ -23,7 +24,7 @@ export const Menu = (props: MenuProps) => {
       />
     </div>
     <div className='menu'>
-      <MenuButton icon="🔍" text="Find optimal Guess" className="blue" onClick={props.onFindGuess} />
+      <MenuButton icon="🔍" text="Find optimal Guess" className="blue" disabled={!props.canFindOptimal} onClick={props.onFindGuess} />
       <MenuButton icon="+" text="Submit" className="green" disabled={!props.canSubmit} onClick={props.onSubmit} />
       <MenuButton icon="↺" text="Reset" className="red" disabled={!props.canReset} onClick={props.onReset} />
     </div>

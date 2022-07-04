@@ -143,8 +143,9 @@ export const Game = (props: { solverConstructor: SolverType }) => {
   return (
     <div className='game-container'>
       <Menu
-        canSubmit={!gameState.currentRow.includes('') && (gameState.currentHint[0] + gameState.currentHint[1] <= gameState.currentRow.length)}
-        canReset={!!gameState.previousRows.length || gameState.colorCount != nextColorCount || gameState.pegCount != nextPegCount}
+        canSubmit={solverState.type != 'solving' && !gameState.currentRow.includes('') && (gameState.currentHint[0] + gameState.currentHint[1] <= gameState.currentRow.length)}
+        canReset={solverState.type != 'solving' && (!!gameState.previousRows.length || gameState.colorCount != nextColorCount || gameState.pegCount != nextPegCount)}
+        canFindOptimal={solverState.type != 'solving'}
         onFindGuess={onFindOptimalGuess}
         onSubmit={onSubmitGuess}
         onReset={onResetGame}
