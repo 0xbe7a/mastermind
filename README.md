@@ -1,7 +1,7 @@
 <!-- LTeX: language=en-US -->
 # A Mastermind solver for optimal worst-case guesses
 This is a solver for the [Mastermind board
-game](https://en.wikipedia.org/wiki/Mastermind_(board_game)) which finds guesses that minimizes the maximum number of possibilities that remain after receiving the corresponding hint
+game](https://en.wikipedia.org/wiki/Mastermind_(board_game)) which finds guesses that minimize the maximum number of possibilities that remain after receiving the corresponding hint
 
 <img 
 width=400
@@ -13,7 +13,7 @@ It is implemented using the new [std::simd](https://doc.rust-lang.org/std/simd/i
 
 Additionally, it uses [rayon](https://github.com/rayon-rs/rayon) to enable multithreading
 
-It finds optimal worst case guesses [^1] from all non-equivalent [^2] guesses that minimize the maximum number of remaining possibilities
+It finds optimal worst-case guesses [^1] from all non-equivalent [^2] guesses that minimize the maximum number of remaining possibilities
 
 The core solver is implemented in [libmastermind](https://github.com/0xbe7a/mastermind/blob/main/libmastermind/src/positions.rs) alongside a CLI-Solver and a Web frontend 
 
