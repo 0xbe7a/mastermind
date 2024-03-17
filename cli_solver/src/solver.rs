@@ -4,9 +4,7 @@ use num_format::{Locale, ToFormattedString};
 
 use std::time::SystemTime;
 
-use libmastermind::{
-    positions::{StandardCollection},
-};
+use libmastermind::positions::StandardCollection;
 
 const P: usize = 7;
 const C: usize = 8;
