@@ -1,4 +1,4 @@
-use std::{cmp::Ordering, collections::HashSet, simd::{u8x8, ToBitMask}};
+use std::{cmp::Ordering, collections::HashSet, simd::{cmp::{SimdOrd, SimdPartialEq}, num::SimdUint, u8x8}};
 
 use crate::eval_counter::EvaluationCounter;
 
@@ -32,6 +32,11 @@ impl StandardCollection {
         self.pins.len()
     }
 
+    #[must_use]
+    pub fn is_empty(&self) -> bool {
+        self.len() == 0
+    }
+
     pub fn push(&mut self, position: &[u8]) {
         let (pin_count, _) = self.size;
         assert_eq!(position.len(), pin_count);
@@ -53,9 +58,9 @@ impl StandardCollection {
             collection.push(&indexes);
 
             match indexes.iter().position(|&c| c + 1 < colors as u8){
-                Some(position) => {
-                    for k in 0..position {
-                        indexes[k] = 0
+                Some(position) => { 
+                    for c in indexes.iter_mut().take(position) {
+                        *c = 0
                     }
                     indexes[position] += 1
                 }
@@ -72,7 +77,7 @@ impl StandardCollection {
         let mut pruned = Self::new(self.len(), pin_count, color_count);
 
         self.into_iter()
-            .zip(results.into_iter())
+            .zip(results.iter())
             .filter_map(|(p, result)| {
                 if *result == (black_pins, white_pins) {
                     Some(p)
@@ -89,7 +94,7 @@ impl StandardCollection {
         let worst_cases = self.get_worst_cases(guesses);
         let possibilities_set: HashSet<&[u8]> = self.into_iter().collect();
 
-        let (guess, worst_case) = guesses.into_iter().zip(worst_cases.into_iter()).min_by(
+        let (guess, worst_case) = guesses.into_iter().zip(worst_cases.iter()).min_by(
             |(_, max_p1), (p2, max_p2)| {
                 match max_p1.cmp(max_p2) {
                     //If both guesses yield the same worst case prioritize lucky guess
@@ -117,8 +122,8 @@ impl StandardCollection {
         let other_pin_vec = u8x8::from_array(*other_pins);
         let other_color_vec = u8x8::from_array(*other_colors);
 
-        let black_pins = pin_vec.lanes_eq(other_pin_vec).to_bitmask().count_ones() as u8 - (8 - pin_count) as u8; 
-        let matching_colors = other_color_vec.min(color_vec);
+        let black_pins = pin_vec.simd_eq(other_pin_vec).to_bitmask().count_ones() as u8 - (8 - pin_count) as u8; 
+        let matching_colors = other_color_vec.simd_min(color_vec);
         let white_pins = matching_colors.reduce_sum() - black_pins;
 
         (black_pins, white_pins)
@@ -130,7 +135,7 @@ impl StandardCollection {
         let mut position_colors = [0; 8];
         let mut position_array = [0; 8];
 
-        for (i, p) in position.into_iter().enumerate() {
+        for (i, p) in position.iter().enumerate() {
             assert!(*p < color_count as u8);
             position_colors[*p as usize] += 1;
             position_array[i] = *p;
@@ -148,13 +153,13 @@ impl StandardCollection {
 
     #[cfg(feature = "multithreading")]
     pub fn get_worst_cases(&self, guesses: &Self) -> Box<[usize]> {
-        use rayon::{prelude::*};
+        use rayon::prelude::*;
         let (pin_count, _) = self.get_size();
         
         (&guesses.pins).into_par_iter().map(|p| {
             let mut counter = EvaluationCounter::<usize>::new(pin_count);
             let results = self.evaluate(&p[..pin_count]);
-            for (b, w) in results.into_iter() {
+            for (b, w) in results.iter() {
                 counter.increment(*b as usize, *w as usize)
             }
             counter.max()
@@ -183,9 +188,19 @@ fn evaluate_test() {
     let results = positions.evaluate(&[0, 1]);
     assert_eq!(results.len(), 4);
     assert_eq!(results[0], (1, 0)); // 0 0
-    assert_eq!(results[1], (2, 0)); // 0 1
-    assert_eq!(results[2], (0, 2)); // 1 0
+    assert_eq!(results[1], (0, 2)); // 1 0
+    assert_eq!(results[2], (2, 0)); // 0 1
     assert_eq!(results[3], (1, 0)); // 1 1
+}
+
+#[test]
+fn test_generate_possibilities_order() {
+    let positions = StandardCollection::generate_possibilities(2, 2);
+    let mut iter = positions.into_iter();
+    assert_eq!(iter.next().unwrap(), &[0, 0]);
+    assert_eq!(iter.next().unwrap(), &[1, 0]);
+    assert_eq!(iter.next().unwrap(), &[0, 1]);
+    assert_eq!(iter.next().unwrap(), &[1, 1]);
 }
 
 #[test]

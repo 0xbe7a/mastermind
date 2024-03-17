@@ -1,4 +1,4 @@
-use super::positions::{StandardCollection};
+use super::positions::StandardCollection;
 
 #[derive(Eq, PartialEq, Ord, PartialOrd, Copy, Clone, Debug)]
 pub enum SignatureSymbol {

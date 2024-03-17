@@ -1,6 +1,5 @@
-#![feature(type_alias_impl_trait)]
 #![feature(portable_simd)]
-#![feature(slice_flatten)]
+#![feature(impl_trait_in_assoc_type)]
 
 pub mod positions;
 pub mod symmetry;
